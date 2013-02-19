@@ -29,12 +29,14 @@ class lwr (
 
   file { "$destination/server.ini":
     content => template("lwr/server.ini.erb"),
-    owner => $user,
+    owner   => $user,
+    require => [Vcsrepo[$destination]],
   }
 
   file { "$destination/job_managers.ini":
     content => template("lwr/job_managers.ini.erb"),
     owner   => $user,
+    require => [Vcsrepo[$destination]],
   }
 
   if $ssl_pem != undef {
@@ -45,6 +47,7 @@ class lwr (
       content => $ssl_pem,
       owner   => $user,
       mode    => 0644,
+      require => [Vcsrepo[$destination]],
     }
   }
 
