@@ -20,7 +20,7 @@ class lwr (
   }
 
   exec { 'create lwr virtualenv':
-    command => "/bin/bash -c 'setup_venv.sh'",  
+    command => "/bin/bash -c './setup_venv.sh'",  
     cwd     => $destination,
     creates => "$destination/.venv",
     require => [Vcsrepo[$destination],],
