@@ -7,6 +7,7 @@ class lwr (
   $destination       = '/usr/share/lwr',
   $ssl_pem           = undef,
   $staging_directory = undef,
+  $host              = '0.0.0.0',
 ) {
   # Also needed python-dev, python-setuptools.
   
