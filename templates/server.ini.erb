@@ -2,13 +2,16 @@
 use = egg:Paste#http
 ## The port on which to listen.
 port = 8913
-<% if ssl_pem != :undef %>
+<%- if ssl_pem != :undef -%>
 ssl_pem = host.pem
-<% end %>
+<%- end -%>
+<%- if staging_directory != :undef -%>
+staging_directory = <%= staging_directory %>
+<%- end -%>
 [app:main]
 paste.app_factory = lwr.app:app_factory
-<% if private_token != :undef %>
+<%- if private_token != :undef -%>
 private_key = <%= private_token %>
-<% end %>
+<%- end -%>
 shelf_filename = persisted_jobs
 
