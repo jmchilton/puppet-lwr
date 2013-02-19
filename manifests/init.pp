@@ -1,16 +1,20 @@
 
 class lwr (
   $user,
-  $repository_url = "https://bitbucket.org/jmchilton/lwr",
-  $port = 8913,
-  $private_token = undef,
-  $destination = '/usr/share/lwr',
-  $ssl_pem = undef,
+  $repository_url    = "https://bitbucket.org/jmchilton/lwr",
+  $port              = 8913,
+  $private_token     = undef,
+  $destination       = '/usr/share/lwr',
+  $ssl_pem           = undef,
+  $staging_directory = undef,
 ) {
   # Also needed python-dev, python-setuptools.
   
   if defined(User[$user]) {
     User[$user] -> Vcsrepo[$destination]
+    if $staging_directory != undef {
+      User[$user] -> File[$staging_directory]
+    }
   }
 
   vcsrepo { "$destination":
@@ -38,6 +42,13 @@ class lwr (
     content => template("lwr/job_managers.ini.erb"),
     owner   => $user,
     require => [Vcsrepo[$destination]],
+  }
+
+  if $staging_directory != undef {
+    file { $staging_directory:
+      ensure => "directory",
+      owner  => $user,
+    }
   }
 
   if $ssl_pem != undef {
