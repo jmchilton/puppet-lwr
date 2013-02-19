@@ -7,6 +7,7 @@ class lwr (
   $destination = '/usr/share/lwr',
   $ssl_pem = undef,
 ) {
+  # Also needed python-dev, python-setuptools.
   
   if defined(User[$user]) {
     User[$user] -> Vcsrepo[$destination]
