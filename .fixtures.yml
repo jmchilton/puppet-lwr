@@ -1,0 +1,5 @@
+fixtures:
+  repositories:
+    vcsrepo: git://github.com/jmchilton/puppet-vcsrepo.git
+  symlinks:
+    lwr: "#{source_dir}"
