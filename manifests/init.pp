@@ -34,13 +34,19 @@ class lwr (
 
   file { "$destination/job_managers.ini":
     content => template("lwr/job_managers.ini.erb"),
-    owner => $user,
+    owner   => $user,
   }
 
   if $ssl_pem != undef {
     package { "libssl-dev":
     }
-  }  
+    
+    file { "$destination/host.pem":
+      content => $ssl_pem,
+      owner   => $user,
+      mode    => 0644,
+    }
+  }
 
 }
 
