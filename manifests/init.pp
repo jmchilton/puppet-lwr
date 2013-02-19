@@ -14,7 +14,7 @@ class lwr (
 
   vcsrepo { "$destination":
     ensure => present,
-    provider => git,
+    provider => hg,
     source => $repository_url,
     owner => $user,
   }
