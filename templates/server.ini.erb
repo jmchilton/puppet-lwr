@@ -14,4 +14,35 @@ private_key = <%= private_token %>
 <%- if staging_directory != :undef -%>
 staging_directory = <%= staging_directory %>
 <%- end -%>
-shelf_filename = persisted_jobs
+file_cache_dir = cache
+persistence_directory = persisted_data
+
+## Configure Python loggers.
+[loggers]
+keys = root,lwr
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_lwr]
+level = DEBUG
+handlers = console
+qualname = lwr
+propagate = 0
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = DEBUG
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
+
